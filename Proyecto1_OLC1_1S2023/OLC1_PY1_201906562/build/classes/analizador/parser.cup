@@ -1,0 +1,72 @@
+package analizador;
+import java_cup.runtime.*;
+
+
+//PARSER 
+parser code
+{://Codigo visible
+    
+    public void syntax_error(Symbol s){
+        System.out.println("Error R de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error NR de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
+    }
+
+:}
+
+
+terminal PRIV_CONJ, DOS_PTS, GUION, MAYOR, COMA, VIRGULILLA,LLA_IZQ, LLA_DER, PUNTO, LIN_VERTICAL, ASTERISCO, SUMA, INTEROGACION, PORCENTAJE, PUNTO_COMA, IDENTIFICADOR, LETRA_MAYUS, CARACTER, CADENA, LETRA_MINUS, NUMEROS, CARACTER_ESP; 
+
+non terminal ini;                                 
+non terminal parte_definicion;
+non terminal parte_pruebas;
+non terminal instruccion; 
+non terminal notacion; 
+non terminal exp_regular; 
+non terminal conjunto; 
+non terminal elemento;
+non terminal evaluar;                    
+
+start with ini;
+
+ini::= LLA_IZQ parte_definicion PORCENTAJE PORCENTAJE PORCENTAJE PORCENTAJE parte_pruebas LLA_DER;                               
+
+parte_definicion ::= instruccion parte_definicion
+                    | instruccion;
+
+instruccion ::= PRIV_CONJ DOS_PTS IDENTIFICADOR GUION MAYOR notacion PUNTO_COMA
+                | IDENTIFICADOR GUION MAYOR exp_regular PUNTO_COMA;
+
+
+notacion ::= LETRA_MAYUS VIRGULILLA LETRA_MAYUS
+            | LETRA_MINUS VIRGULILLA LETRA_MINUS
+            | NUMEROS VIRGULILLA NUMEROS
+            | CARACTER_ESP VIRGULILLA CARACTER_ESP
+            | conjunto;
+
+conjunto ::= elemento COMA conjunto
+            |elemento;
+
+
+elemento ::= LETRA_MAYUS 
+            | LETRA_MINUS
+            | NUMEROS
+            | CARACTER_ESP;
+
+
+exp_regular ::= PUNTO exp_regular exp_regular
+                | LIN_VERTICAL exp_regular exp_regular
+                | ASTERISCO exp_regular
+                | SUMA exp_regular
+                | INTEROGACION exp_regular
+                | CARACTER
+                | LLA_IZQ IDENTIFICADOR LLA_DER;
+
+parte_pruebas ::= evaluar  parte_pruebas
+                | evaluar; 
+
+    
+evaluar ::= IDENTIFICADOR DOS_PTS CADENA PUNTO_COMA;
+
