@@ -2,6 +2,9 @@
 
 package analizador;
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+
+import errores.excepcion;
 
 
 /**
@@ -252,6 +255,7 @@ public class scanner implements java_cup.runtime.Scanner {
 
   /* user code: */
     //Código de usuario
+    public ArrayList<excepcion> erroreslexicos = new ArrayList<excepcion>();
 
 
   /**
@@ -514,8 +518,6 @@ public class scanner implements java_cup.runtime.Scanner {
     while (true) {
       zzMarkedPosL = zzMarkedPos;
 
-      yychar+= zzMarkedPosL-zzStartRead;
-
       boolean zzR = false;
       int zzCh;
       int zzCharCount;
@@ -531,10 +533,12 @@ public class scanner implements java_cup.runtime.Scanner {
         case '\u2028':  // fall through
         case '\u2029':
           yyline++;
+          yycolumn = 0;
           zzR = false;
           break;
         case '\r':
           yyline++;
+          yycolumn = 0;
           zzR = true;
           break;
         case '\n':
@@ -542,10 +546,12 @@ public class scanner implements java_cup.runtime.Scanner {
             zzR = false;
           else {
             yyline++;
+            yycolumn = 0;
           }
           break;
         default:
           zzR = false;
+          yycolumn += zzCharCount;
         }
       }
 
@@ -636,8 +642,9 @@ public class scanner implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { String errLex = "Error léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1);
-        System.out.println(errLex);
+            { //String errLex = "Error léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1);
+        //System.out.println(errLex);
+        erroreslexicos.add(new excepcion("Lexico", "El caracter : '"+yytext()+"' no pertenece al lenguahe", Integer.toString(yyline+1), Integer.toString(yycolumn+1)));
             } 
             // fall through
           case 25: break;
@@ -712,7 +719,7 @@ public class scanner implements java_cup.runtime.Scanner {
             // fall through
           case 39: break;
           case 16: 
-            { 
+            { /*Espacios en blanco, ignorados*/
             } 
             // fall through
           case 40: break;

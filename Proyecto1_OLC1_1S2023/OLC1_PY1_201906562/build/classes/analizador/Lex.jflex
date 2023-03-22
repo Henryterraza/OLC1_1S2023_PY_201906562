@@ -1,17 +1,21 @@
 package analizador;
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+
+import errores.excepcion;
 
 %%
 
 %{
     //Código de usuario
+    public ArrayList<excepcion> erroreslexicos = new ArrayList<excepcion>();
 %}
 
 %class scanner  // definir como trabajara el scanner 
 %cup            // trabajar con cup 
 %public         // tipo publico
 %line           // conteo de lineas - linea por linea
-%char           // caracter por caracter
+%column           // caracter por caracter
 %unicode        // tipo de codigicacion para que acepte la  ñ u otro caracter
 %ignorecase     // case insensitive 
 
@@ -55,10 +59,10 @@ CADENA = \"([^\"]|"\\\"")+\"
 
 %%
 
-<YYINITIAL> {COMENT_MULTILINEA} {}
-<YYINITIAL> {COMENT_SIMPLE} {}
-<YYINITIAL> {ESPACIOS} { }
-<YYINITIAL> {COMILLA} { }
+<YYINITIAL> {COMENT_MULTILINEA} {/*Espacios en blanco, ignorados*/}
+<YYINITIAL> {COMENT_SIMPLE} {/*Espacios en blanco, ignorados*/}
+<YYINITIAL> {ESPACIOS} { /*Espacios en blanco, ignorados*/}
+<YYINITIAL> {COMILLA} {/*Espacios en blanco, ignorados*/ }
 <YYINITIAL> {PRIV_CONJ} { return new Symbol(sym.PRIV_CONJ, yyline, yycolumn,yytext());} 
 <YYINITIAL> {DOS_PTS} { return new Symbol(sym.DOS_PTS, yyline, yycolumn,yytext());} 
 <YYINITIAL> {GUION} { return new Symbol(sym.GUION, yyline, yycolumn,yytext());} 
@@ -83,7 +87,9 @@ CADENA = \"([^\"]|"\\\"")+\"
 <YYINITIAL> {CARACTER_ESP} { return new Symbol(sym.CARACTER_ESP, yyline, yycolumn,yytext());} 
 
 <YYINITIAL> . {
-        String errLex = "Error léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1);
-        System.out.println(errLex);
+        //String errLex = "Error léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1);
+        //System.out.println(errLex);
+        erroreslexicos.add(new excepcion("Lexico", "El caracter : '"+yytext()+"' no pertenece al lenguahe", Integer.toString(yyline+1), Integer.toString(yycolumn+1)));
 }
 
+ 

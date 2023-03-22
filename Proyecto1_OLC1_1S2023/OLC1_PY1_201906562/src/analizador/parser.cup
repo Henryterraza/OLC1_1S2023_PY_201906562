@@ -3,17 +3,22 @@ import java_cup.runtime.*;
 import java.util.ArrayList;
 
 
+import errores.excepcion;
+
 //PARSER 
 parser code
 {://Codigo visible
     public ArrayList<Arbol_automata> arboles = new ArrayList<>();
+    public ArrayList<excepcion> erroressintacticos = new ArrayList<excepcion>();
     
     public void syntax_error(Symbol s){
         System.out.println("Error R de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
+        erroressintacticos.add(new excepcion("Sintactico", "Error recuperable de sintaxis : "+ s.value , Integer.toString(s.left+1), Integer.toString(s.right+1)));
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
         System.out.println("Error NR de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
+        erroressintacticos.add(new excepcion("Sintactico", "Error no recuperable de sintaxis : "+ s.value , Integer.toString(s.left+1), Integer.toString(s.right+1)));
     }
 
 :}
@@ -40,7 +45,8 @@ parte_definicion ::= instruccion parte_definicion
                     | instruccion;
 
 instruccion ::= PRIV_CONJ DOS_PTS IDENTIFICADOR GUION MAYOR notacion PUNTO_COMA
-                | IDENTIFICADOR:b GUION MAYOR exp_regular:a PUNTO_COMA {:arboles.add(new Arbol_automata((Nodo_automata)a, b));:};
+                | IDENTIFICADOR:b GUION MAYOR exp_regular:a PUNTO_COMA {:arboles.add(new Arbol_automata((Nodo_automata)a, b));:}
+                | error PUNTO_COMA;
 
 
 notacion ::= LETRA_MAYUS VIRGULILLA LETRA_MAYUS
@@ -120,5 +126,6 @@ parte_pruebas ::= evaluar  parte_pruebas
                 | evaluar; 
 
     
-evaluar ::= IDENTIFICADOR DOS_PTS CADENA PUNTO_COMA;
+evaluar ::= IDENTIFICADOR DOS_PTS CADENA PUNTO_COMA
+            | error PUNTO_COMA;
 

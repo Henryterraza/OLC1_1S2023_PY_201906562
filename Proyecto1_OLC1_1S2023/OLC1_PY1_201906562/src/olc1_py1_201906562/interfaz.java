@@ -6,11 +6,14 @@ package olc1_py1_201906562;
 
 import analizador.parser;
 import analizador.scanner;
+
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +25,7 @@ public class interfaz extends javax.swing.JFrame {
      * Creates new form interfaz
      */
     File fichero_actual = null;
-    
+
     public interfaz() {
         initComponents();
     }
@@ -136,20 +139,18 @@ public class interfaz extends javax.swing.JFrame {
     private void btn_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_abrirActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int seleccion = fileChooser.showSaveDialog(txt_editor);
-        if (seleccion == JFileChooser.APPROVE_OPTION)
-        {
-           fichero_actual = fileChooser.getSelectedFile();
-           String contenido = "";
-           
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            fichero_actual = fileChooser.getSelectedFile();
+            String contenido = "";
+
             try {
                 Scanner input = new Scanner(fichero_actual);
-                while (input.hasNextLine()){
-                    contenido += input.nextLine()+ "\n";
-                                      
+                while (input.hasNextLine()) {
+                    contenido += input.nextLine() + "\n";
+
                 }
                 input.close();
-                
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -160,17 +161,15 @@ public class interfaz extends javax.swing.JFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         File file = fichero_actual;
         String text = txt_editor.getText();
-        
-        
+
         try (PrintWriter out = new PrintWriter(file, StandardCharsets.UTF_8)) {
             out.print(text);
             System.out.println("Se guardo el archivo con exito");
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
 //        if (fichero_actual != null) {
 //            
 //            
@@ -179,16 +178,104 @@ public class interfaz extends javax.swing.JFrame {
 
     private void btn_analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_analizarActionPerformed
         String entrada = txt_editor.getText();
+
+        String content = "";
+        int cont = 1;
+        content += "<!doctype html>\n"
+                + "<html lang=\"en\">\n"
+                + "<head>\n"
+                + "     <meta charset=\"utf-8\">\n"
+                + "     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+                + "     <title>\"\"\" + nombre + \"\"\"-errores</title>\n"
+                + "     <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css \" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">\n"
+                + "</head>\n"
+                + "<body style=\"background-color: #f0efe9;\"> "
+                + "     <div class=\"text-center mb-5\">\n"
+                + "         <h1 class=\"display-4 text-black\">REPORTE DE ERRORES</h1>    \n"
+                + "     </div>\n"
+                + "     <div class=\"container\">\n"
+                + "         <div class=\"row\">\n"
+                + "             <div class=\"col\">\n"
+                + "                 <table class=\"table\">\n"
+                + "                     <thead>\n"
+                + "                         <tr>\n"
+                + "                             <th scope=\"col\">#</th>\n"
+                + "                             <th scope=\"col\">Tipo</th>\n"
+                + "                             <th scope=\"col\">Mensaje</th>\n"
+                + "                             <th scope=\"col\">Linea</th>\n"
+                + "                             <th scope=\"col\">Columna</th>\n"
+                + "                         </tr>\n"
+                + "                     </thead>\n"
+                + "                     <tbody class=\"table-group-divider\">";
+
         try {
+
             scanner scanner = new scanner(new java.io.StringReader(entrada));
             parser analizador = new parser(scanner);
             analizador.parse();
             System.out.println("ANALISIS TERMINADO");
-            
+
+            for (int i = 0; i < scanner.erroreslexicos.size(); i++) {
+                content += "                     <tr>\n"
+                        + "                         <td> " + cont + " </td>\n"
+                        + "                         <td> " + scanner.erroreslexicos.get(i).getTipo() + " </td>\n"
+                        + "                         <td> " + scanner.erroreslexicos.get(i).getDescripcion() + " </td>\n"
+                        + "                         <td> " + scanner.erroreslexicos.get(i).getFila() + " </td>\n"
+                        + "                         <td> " + scanner.erroreslexicos.get(i).getColumna() + " </td>\n"
+                        + "                     </tr>\n";
+            }
+
+            for (int i = 0; i < analizador.erroressintacticos.size(); i++) {
+                content += "                     <tr>\n"
+                        + "                         <td> " + cont + " </td>\n"
+                        + "                         <td> " + analizador.erroressintacticos.get(i).getTipo() + " </td>\n"
+                        + "                         <td> " + analizador.erroressintacticos.get(i).getDescripcion() + " </td>\n"
+                        + "                         <td> " + analizador.erroressintacticos.get(i).getFila() + " </td>\n"
+                        + "                         <td> " + analizador.erroressintacticos.get(i).getColumna() + " </td>\n"
+                        + "                     </tr>";
+            }
+
+            content += "</tbody>\n"
+                    + "                </table>\n"
+                    + "            </div>\n"
+                    + "        </div>\n"
+                    + "    </div>\n"
+                    + "\n"
+                    + "\n"
+                    + "    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js\"\n"
+                    + "        integrity=\"sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2\"\n"
+                    + "        crossorigin=\"anonymous\"></script>\n"
+                    + "</body>\n"
+                    + "\n"
+                    + "</html>";
+
+            if (scanner.erroreslexicos.isEmpty() && analizador.erroressintacticos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron errores lexicos/sintacticos");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se encontraron errores lexicos/sintacticos\n"
+                        + "Generando reporte de errores ");
+                Crear_ErroresHTML(content, "ERRORES_201906562\\", "Errores");
+                
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btn_analizarActionPerformed
 
+    private void Crear_ErroresHTML(String cadena, String carpeta, String nombre) {
+        FileWriter fichero = null;
+        PrintWriter escritor = null;
+        try {
+            fichero = new FileWriter(carpeta + nombre + ".html");
+            escritor = new PrintWriter(fichero);
+            escritor.println(cadena);
+            escritor.close();
+            fichero.close();
+        } catch (Exception e) {
+            System.out.println("error en generar html");
+            e.printStackTrace();
+        }
+    }
     private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
         txt_editor.setText("");
     }//GEN-LAST:event_btn_LimpiarActionPerformed
