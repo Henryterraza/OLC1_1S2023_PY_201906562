@@ -1,0 +1,49 @@
+digraph test {
+label     = "TABLA DE TRANSICIONES"
+labelloc  =  t // t: Place the graph's title on top.
+fontsize  = 20 // Make title stand out by giving a large font size 
+fontcolor = blue
+graph [ratio=fill];
+node [label="\N", fontsize=15, shape=plaintext];
+graph [bb="0,0,352,154"];
+N_1[shape =plaintext label=<
+
+<TABLE border="0" cellborder="1" cellspacing="0" >
+<TR>
+<TD width= "150" >Estado</TD>
+<TD width= "150" >
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD colspan="3">Terminales</TD>
+</TR>
+<TR>
+ <TD width="100">abecedarioMinus</TD>
+ <TD width="100">digito</TD>
+ <TD width="100">"_"</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S0 [1]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S1</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S1 [2, 3, 4, 5]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S1</TD>
+<TD width="100">S1</TD>
+<TD width="100">S1</TD>
+</TR>
+</TABLE>
+</TD>
+</TR></TABLE>>]
+}

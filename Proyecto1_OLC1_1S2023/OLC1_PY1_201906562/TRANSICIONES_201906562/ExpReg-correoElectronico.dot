@@ -1,0 +1,186 @@
+digraph test {
+label     = "TABLA DE TRANSICIONES"
+labelloc  =  t // t: Place the graph's title on top.
+fontsize  = 20 // Make title stand out by giving a large font size 
+fontcolor = blue
+graph [ratio=fill];
+node [label="\N", fontsize=15, shape=plaintext];
+graph [bb="0,0,352,154"];
+N_1[shape =plaintext label=<
+
+<TABLE border="0" cellborder="1" cellspacing="0" >
+<TR>
+<TD width= "150" >Estado</TD>
+<TD width= "150" >
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD colspan="9">Terminales</TD>
+</TR>
+<TR>
+ <TD width="100">mayuscula</TD>
+ <TD width="100">minuscula</TD>
+ <TD width="100">numero</TD>
+ <TD width="100">simbolos</TD>
+ <TD width="100">"@"</TD>
+ <TD width="100">"."</TD>
+ <TD width="100">"c"</TD>
+ <TD width="100">"o"</TD>
+ <TD width="100">"m"</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S0 [1, 2]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S1</TD>
+<TD width="100">S1</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S1 [3, 4, 5, 6]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S2</TD>
+<TD width="100">S2</TD>
+<TD width="100">S2</TD>
+<TD width="100">S2</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S2 [3, 4, 5, 6, 7]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S2</TD>
+<TD width="100">S2</TD>
+<TD width="100">S2</TD>
+<TD width="100">S2</TD>
+<TD width="100">S3</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S3 [8, 9]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S4</TD>
+<TD width="100">S4</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S4 [8, 9, 10]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">S4</TD>
+<TD width="100">S4</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">S5</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S5 [11]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">S6</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S6 [12]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">S7</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S7 [13]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">S8</TD>
+</TR>
+</TABLE>
+</TD>
+</TR><TR>
+<TD>S8 [14]</TD>
+<TD>
+<TABLE border="0" cellpadding="10" cellborder="1" cellspacing="0" >
+<TR>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+<TD width="100">--</TD>
+</TR>
+</TABLE>
+</TD>
+</TR></TABLE>>]
+}

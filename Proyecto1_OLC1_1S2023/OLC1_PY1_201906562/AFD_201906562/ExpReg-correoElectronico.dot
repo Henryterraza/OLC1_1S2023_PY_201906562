@@ -1,0 +1,38 @@
+digraph finite_state_machine {
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+rankdir=LR;
+nodesep=0.5;
+node [shape = circle width = "1.2"]
+S[shape=plaintext, label= ""]
+S0
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+S8[shape = doublecircle]
+S -> S0 [label = "Inicio"];
+S0 -> S1 [label = "mayuscula"];
+S0 -> S1 [label = "minuscula"];
+S1 -> S2 [label = "mayuscula"];
+S1 -> S2 [label = "minuscula"];
+S1 -> S2 [label = "numero"];
+S1 -> S2 [label = "simbolos"];
+S2 -> S2 [label = "mayuscula"];
+S2 -> S2 [label = "minuscula"];
+S2 -> S2 [label = "numero"];
+S2 -> S2 [label = "simbolos"];
+S2 -> S3 [label = "@"];
+S3 -> S4 [label = "mayuscula"];
+S3 -> S4 [label = "minuscula"];
+S4 -> S4 [label = "mayuscula"];
+S4 -> S4 [label = "minuscula"];
+S4 -> S5 [label = "."];
+S5 -> S6 [label = "c"];
+S6 -> S7 [label = "o"];
+S7 -> S8 [label = "m"];
+}

@@ -43,6 +43,7 @@ public class interfaz extends javax.swing.JFrame {
         txt_editor = new javax.swing.JTextArea();
         lb_editor = new javax.swing.JLabel();
         btn_analizar = new javax.swing.JButton();
+        btn_Limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +76,13 @@ public class interfaz extends javax.swing.JFrame {
             }
         });
 
+        btn_Limpiar.setText("Limpiar");
+        btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,7 +105,9 @@ public class interfaz extends javax.swing.JFrame {
                         .addGap(206, 206, 206))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btn_analizar)
-                        .addGap(62, 62, 62))))
+                        .addGap(35, 35, 35)
+                        .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,9 +123,11 @@ public class interfaz extends javax.swing.JFrame {
                         .addComponent(btn_guardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_guardarcomo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_analizar)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_analizar)
+                    .addComponent(btn_Limpiar))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,6 +189,10 @@ public class interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_analizarActionPerformed
 
+    private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
+        txt_editor.setText("");
+    }//GEN-LAST:event_btn_LimpiarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -213,6 +229,7 @@ public class interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Limpiar;
     private javax.swing.JButton btn_abrir;
     private javax.swing.JButton btn_analizar;
     private javax.swing.JButton btn_guardar;

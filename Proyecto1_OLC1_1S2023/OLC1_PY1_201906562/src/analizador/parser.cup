@@ -1,10 +1,12 @@
 package analizador;
 import java_cup.runtime.*;
+import java.util.ArrayList;
 
 
 //PARSER 
 parser code
 {://Codigo visible
+    public ArrayList<Arbol_automata> arboles = new ArrayList<>();
     
     public void syntax_error(Symbol s){
         System.out.println("Error R de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
@@ -17,7 +19,7 @@ parser code
 :}
 
 
-terminal PRIV_CONJ, DOS_PTS, GUION, MAYOR, COMA, VIRGULILLA,LLA_IZQ, LLA_DER, PUNTO, LIN_VERTICAL, ASTERISCO, SUMA, INTEROGACION, PORCENTAJE, PUNTO_COMA, IDENTIFICADOR, LETRA_MAYUS, CARACTER, CADENA, LETRA_MINUS, NUMEROS, CARACTER_ESP; 
+terminal String PRIV_CONJ, DOS_PTS, GUION, MAYOR, COMA, VIRGULILLA,LLA_IZQ, LLA_DER, PUNTO, LIN_VERTICAL, ASTERISCO, SUMA, INTEROGACION, PORCENTAJE, PUNTO_COMA, IDENTIFICADOR, LETRA_MAYUS, CARACTER, CADENA, LETRA_MINUS, NUMEROS, CARACTER_ESP; 
 
 non terminal ini;                                 
 non terminal parte_definicion;
@@ -28,6 +30,7 @@ non terminal exp_regular;
 non terminal conjunto; 
 non terminal elemento;
 non terminal evaluar;                    
+non terminal noreconocidos;                    
 
 start with ini;
 
@@ -37,13 +40,14 @@ parte_definicion ::= instruccion parte_definicion
                     | instruccion;
 
 instruccion ::= PRIV_CONJ DOS_PTS IDENTIFICADOR GUION MAYOR notacion PUNTO_COMA
-                | IDENTIFICADOR GUION MAYOR exp_regular PUNTO_COMA;
+                | IDENTIFICADOR:b GUION MAYOR exp_regular:a PUNTO_COMA {:arboles.add(new Arbol_automata((Nodo_automata)a, b));:};
 
 
 notacion ::= LETRA_MAYUS VIRGULILLA LETRA_MAYUS
             | LETRA_MINUS VIRGULILLA LETRA_MINUS
             | NUMEROS VIRGULILLA NUMEROS
             | CARACTER_ESP VIRGULILLA CARACTER_ESP
+            | noreconocidos VIRGULILLA noreconocidos
             | conjunto;
 
 conjunto ::= elemento COMA conjunto
@@ -53,16 +57,64 @@ conjunto ::= elemento COMA conjunto
 elemento ::= LETRA_MAYUS 
             | LETRA_MINUS
             | NUMEROS
+            | noreconocidos
             | CARACTER_ESP;
 
+noreconocidos::= DOS_PTS
+            | GUION
+            | MAYOR
+            | LLA_IZQ
+            | LLA_DER
+            | PUNTO
+            | LIN_VERTICAL
+            | ASTERISCO
+            | SUMA
+            | INTEROGACION
+            | PORCENTAJE
+            | PUNTO_COMA;
+            
 
-exp_regular ::= PUNTO exp_regular exp_regular
-                | LIN_VERTICAL exp_regular exp_regular
-                | ASTERISCO exp_regular
-                | SUMA exp_regular
-                | INTEROGACION exp_regular
-                | CARACTER
-                | LLA_IZQ IDENTIFICADOR LLA_DER;
+
+
+exp_regular ::= PUNTO:a exp_regular:b exp_regular:c{:
+                Nodo_automata padre = new Nodo_automata(a);
+                padre.setHijo_izq((Nodo_automata)b);
+                padre.setHijo_der((Nodo_automata)c);
+                RESULT = padre;
+                :}
+                | LIN_VERTICAL:a exp_regular:b exp_regular:c {:
+                Nodo_automata padre = new Nodo_automata(a);
+                padre.setHijo_der((Nodo_automata)b);
+                padre.setHijo_izq((Nodo_automata)c);
+                RESULT = padre;
+                :}
+                | ASTERISCO:a exp_regular:b {:
+                Nodo_automata padre = new Nodo_automata(a);
+                padre.setHijo_izq((Nodo_automata)b);
+                RESULT = padre;
+                :}
+                | SUMA:a exp_regular:b {:
+                Nodo_automata padre = new Nodo_automata(a);
+                padre.setHijo_izq((Nodo_automata)b);
+                RESULT = padre;
+                :}
+                | INTEROGACION:a exp_regular:b {:
+                Nodo_automata padre = new Nodo_automata(a);
+                padre.setHijo_izq((Nodo_automata)b);
+                RESULT = padre;
+                :}
+                | CARACTER:a {:
+                Nodo_automata hoja = new Nodo_automata(a);
+                hoja.setHoja(true);                
+                hoja.setAnulable(false);
+                RESULT = hoja;
+                :}
+                | LLA_IZQ IDENTIFICADOR:a LLA_DER{:
+                Nodo_automata hoja = new Nodo_automata(a);
+                hoja.setHoja(true);
+                hoja.setAnulable(false);
+                RESULT = hoja;
+                :};
 
 parte_pruebas ::= evaluar  parte_pruebas
                 | evaluar; 

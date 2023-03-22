@@ -1,0 +1,53 @@
+digraph G {
+label     = "TABLA DE SIGUIENTES"
+labelloc  =  t // t: Place the graph's title on top.
+fontsize  = 30 // Make title stand out by giving a large font size 
+fontcolor = blue
+N_1[shape = none label=<
+<TABLE border="1" cellspacing="2" cellpadding="10" >
+<TR>
+<TD colspan="2" width="200">Hoja</TD>
+<TD colspan="1" width="150">Siguintes</TD>
+</TR>
+<TR>
+ <TD>"2"</TD>
+ <TD>1</TD>
+ <TD>[3, 4, 5, 6, 7]</TD>
+ </TR>
+<TR>
+ <TD>letra</TD>
+ <TD>2</TD>
+ <TD>[3, 4, 5, 6, 7]</TD>
+ </TR>
+<TR>
+ <TD>nums</TD>
+ <TD>3</TD>
+ <TD>[3, 4, 5, 6, 7]</TD>
+ </TR>
+<TR>
+ <TD>"x"</TD>
+ <TD>4</TD>
+ <TD>[7]</TD>
+ </TR>
+<TR>
+ <TD>mayus</TD>
+ <TD>5</TD>
+ <TD>[5, 6, 7]</TD>
+ </TR>
+<TR>
+ <TD>separados</TD>
+ <TD>6</TD>
+ <TD>[5, 6, 7]</TD>
+ </TR>
+<TR>
+ <TD>separados</TD>
+ <TD>7</TD>
+ <TD>[8]</TD>
+ </TR>
+<TR>
+ <TD>#</TD>
+ <TD>8</TD>
+ <TD>[]</TD>
+ </TR>
+</TABLE>>]
+}
