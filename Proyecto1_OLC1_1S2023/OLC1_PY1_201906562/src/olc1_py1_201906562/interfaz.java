@@ -6,10 +6,12 @@ package olc1_py1_201906562;
 
 import analizador.parser;
 import analizador.scanner;
+import java.io.BufferedWriter;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
@@ -65,6 +67,11 @@ public class interfaz extends javax.swing.JFrame {
         });
 
         btn_guardarcomo.setText("Guardar como");
+        btn_guardarcomo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarcomoActionPerformed(evt);
+            }
+        });
 
         txt_editor.setColumns(20);
         txt_editor.setRows(5);
@@ -255,7 +262,7 @@ public class interfaz extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se encontraron errores lexicos/sintacticos\n"
                         + "Generando reporte de errores ");
                 Crear_ErroresHTML(content, "ERRORES_201906562\\", "Errores");
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,6 +286,23 @@ public class interfaz extends javax.swing.JFrame {
     private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
         txt_editor.setText("");
     }//GEN-LAST:event_btn_LimpiarActionPerformed
+
+    private void btn_guardarcomoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarcomoActionPerformed
+        JFileChooser guardarcomo = new JFileChooser();
+        guardarcomo.showSaveDialog(null);
+        guardarcomo.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        
+        File archivo = new File(guardarcomo.getSelectedFile()+ ".olc");
+        
+        try {
+            BufferedWriter salida = new BufferedWriter(new FileWriter (archivo) ); 
+            salida.write(txt_editor.getText());
+            salida.close();
+        } catch (Exception e) {
+            System.out.println("Error al guardar");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_guardarcomoActionPerformed
 
     /**
      * @param args the command line arguments
