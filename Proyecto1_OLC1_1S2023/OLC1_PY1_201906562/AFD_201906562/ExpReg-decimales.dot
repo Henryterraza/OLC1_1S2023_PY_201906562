@@ -1,0 +1,19 @@
+digraph finite_state_machine {
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+rankdir=LR;
+nodesep=0.5;
+node [shape = circle width = "1.2"]
+S[shape=plaintext, label= ""]
+S0
+S1
+S2
+S3[shape = doublecircle]
+S -> S0 [label = "Inicio"];
+S0 -> S1 [label = "digito"];
+S1 -> S1 [label = "digito"];
+S1 -> S2 [label = "."];
+S2 -> S3 [label = "digito"];
+S3 -> S3 [label = "digito"];
+}

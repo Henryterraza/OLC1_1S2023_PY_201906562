@@ -8,6 +8,7 @@ package analizador;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import errores.excepcion;
+import Identi_Lexema.Ident_Lexema;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -203,6 +204,7 @@ public class parser extends java_cup.runtime.lr_parser {
 //Codigo visible
     public ArrayList<Arbol_automata> arboles = new ArrayList<>();
     public ArrayList<excepcion> erroressintacticos = new ArrayList<excepcion>();
+    public ArrayList<Ident_Lexema> Iden_Lexema= new ArrayList<Ident_Lexema>();
     
     public void syntax_error(Symbol s){
         System.out.println("Error R de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
@@ -698,7 +700,15 @@ class CUP$parser$actions {
           case 41: // evaluar ::= IDENTIFICADOR DOS_PTS CADENA PUNTO_COMA 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
+		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String b = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		
+            Iden_Lexema.add(new Ident_Lexema(a,b));
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("evaluar",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

@@ -1,5 +1,5 @@
 digraph G {
-label     = "prueba"
+label     = "TABLA DE SIGUIENTES"
 labelloc  =  t // t: Place the graph's title on top.
 fontsize  = 30 // Make title stand out by giving a large font size 
 fontcolor = blue

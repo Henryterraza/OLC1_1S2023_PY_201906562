@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 
 import errores.excepcion;
+import Identi_Lexema.Ident_Lexema;
 
 //PARSER 
 parser code
 {://Codigo visible
     public ArrayList<Arbol_automata> arboles = new ArrayList<>();
     public ArrayList<excepcion> erroressintacticos = new ArrayList<excepcion>();
+    public ArrayList<Ident_Lexema> Iden_Lexema= new ArrayList<Ident_Lexema>();
     
     public void syntax_error(Symbol s){
         System.out.println("Error R de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
@@ -126,6 +128,9 @@ parte_pruebas ::= evaluar  parte_pruebas
                 | evaluar; 
 
     
-evaluar ::= IDENTIFICADOR DOS_PTS CADENA PUNTO_COMA
+evaluar ::= IDENTIFICADOR:a DOS_PTS CADENA:b PUNTO_COMA
+            {:
+            Iden_Lexema.add(new Ident_Lexema(a,b));
+            :}
             | error PUNTO_COMA;
 

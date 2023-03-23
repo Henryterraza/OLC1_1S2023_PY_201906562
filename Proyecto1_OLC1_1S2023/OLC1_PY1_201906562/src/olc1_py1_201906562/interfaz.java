@@ -17,6 +17,11 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author henry
@@ -27,6 +32,7 @@ public class interfaz extends javax.swing.JFrame {
      * Creates new form interfaz
      */
     File fichero_actual = null;
+    parser ParserGlobal;
 
     public interfaz() {
         initComponents();
@@ -47,8 +53,9 @@ public class interfaz extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_editor = new javax.swing.JTextArea();
         lb_editor = new javax.swing.JLabel();
-        btn_analizar = new javax.swing.JButton();
+        btn_generar = new javax.swing.JButton();
         btn_Limpiar = new javax.swing.JButton();
+        btn_Analizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,10 +86,10 @@ public class interfaz extends javax.swing.JFrame {
 
         lb_editor.setText("Editor");
 
-        btn_analizar.setText("Analizar Entrada");
-        btn_analizar.addActionListener(new java.awt.event.ActionListener() {
+        btn_generar.setText("Generar Automata");
+        btn_generar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_analizarActionPerformed(evt);
+                btn_generarActionPerformed(evt);
             }
         });
 
@@ -93,10 +100,21 @@ public class interfaz extends javax.swing.JFrame {
             }
         });
 
+        btn_Analizar.setText("Analizar Entrada");
+        btn_Analizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AnalizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lb_editor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(206, 206, 206))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,19 +123,15 @@ public class interfaz extends javax.swing.JFrame {
                         .addComponent(btn_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_abrir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lb_editor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_analizar)
-                        .addGap(35, 35, 35)
-                        .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_generar)
+                        .addGap(30, 30, 30)
+                        .addComponent(btn_Analizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,9 +148,10 @@ public class interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_guardarcomo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_analizar)
-                    .addComponent(btn_Limpiar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_generar)
+                    .addComponent(btn_Limpiar)
+                    .addComponent(btn_Analizar))
                 .addContainerGap(125, Short.MAX_VALUE))
         );
 
@@ -183,7 +198,7 @@ public class interfaz extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
-    private void btn_analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_analizarActionPerformed
+    private void btn_generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generarActionPerformed
         String entrada = txt_editor.getText();
 
         String content = "";
@@ -221,6 +236,8 @@ public class interfaz extends javax.swing.JFrame {
             parser analizador = new parser(scanner);
             analizador.parse();
             System.out.println("ANALISIS TERMINADO");
+
+            ParserGlobal = analizador;
 
             for (int i = 0; i < scanner.erroreslexicos.size(); i++) {
                 content += "                     <tr>\n"
@@ -267,7 +284,7 @@ public class interfaz extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btn_analizarActionPerformed
+    }//GEN-LAST:event_btn_generarActionPerformed
 
     private void Crear_ErroresHTML(String cadena, String carpeta, String nombre) {
         FileWriter fichero = null;
@@ -291,11 +308,11 @@ public class interfaz extends javax.swing.JFrame {
         JFileChooser guardarcomo = new JFileChooser();
         guardarcomo.showSaveDialog(null);
         guardarcomo.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        
-        File archivo = new File(guardarcomo.getSelectedFile()+ ".olc");
-        
+
+        File archivo = new File(guardarcomo.getSelectedFile() + ".olc");
+
         try {
-            BufferedWriter salida = new BufferedWriter(new FileWriter (archivo) ); 
+            BufferedWriter salida = new BufferedWriter(new FileWriter(archivo));
             salida.write(txt_editor.getText());
             salida.close();
         } catch (Exception e) {
@@ -303,6 +320,31 @@ public class interfaz extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btn_guardarcomoActionPerformed
+
+    private void btn_AnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AnalizarActionPerformed
+        JSONArray Lista_Analiza = new JSONArray();
+
+        for (int i = 0; i < ParserGlobal.Iden_Lexema.size(); i++) {
+            JSONObject Datos_Analizar = new JSONObject();
+            Datos_Analizar.put("Valor", ParserGlobal.Iden_Lexema.get(i).getExp_Regular());
+            Datos_Analizar.put("ExpresionRegular", ParserGlobal.Iden_Lexema.get(i).getValor());
+            Datos_Analizar.put("Resutado",ParserGlobal.Iden_Lexema.get(i).getResultado());
+            
+            Lista_Analiza.add(Datos_Analizar);
+        }
+        
+        try {
+
+            FileWriter file = new FileWriter("SALIDAS_201906562\\Salida.json");
+            file.write(Lista_Analiza.toJSONString());
+            file.flush();
+            file.close();
+
+        } catch (IOException e) {
+            //manejar error
+        }
+
+    }//GEN-LAST:event_btn_AnalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,9 +382,10 @@ public class interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Analizar;
     private javax.swing.JButton btn_Limpiar;
     private javax.swing.JButton btn_abrir;
-    private javax.swing.JButton btn_analizar;
+    private javax.swing.JButton btn_generar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_guardarcomo;
     private javax.swing.JScrollPane jScrollPane1;
