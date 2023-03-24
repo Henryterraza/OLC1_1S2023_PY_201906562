@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/henry/Documents/NetBeansProjects/OLC1_PY1_201906562/src/analizador/Arbol_automata.java</file>
+            <file>file:/C:/Users/henry/Documents/NetBeansProjects/OLC1_PY1_201906562/src/analizador/parser.cup</file>
+            <file>file:/C:/Users/henry/Documents/NetBeansProjects/OLC1_PY1_201906562/src/analizador/Lex.jflex</file>
+            <file>file:/C:/Users/henry/Documents/NetBeansProjects/OLC1_PY1_201906562/src/olc1_py1_201906562/interfaz.java</file>
         </group>
     </open-files>
 </project-private>

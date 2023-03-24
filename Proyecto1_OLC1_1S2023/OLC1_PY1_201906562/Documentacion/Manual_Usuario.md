@@ -1,99 +1,55 @@
 # **MANUAL DE USUARIO**
 
-![icono](Usuario.png)
+![icono](Img-usuario/Usuario.png)
 
-## Simple C
+## EXREGAN
 
 ## **INDICE**- [**MANUAL DE USUARIO**](#manual-de-usuario)
-  - [**INDICE**](#indice)
+- [**MANUAL DE USUARIO**](#manual-de-usuario)
+  - [EXREGAN](#exregan)
+  - [**INDICE**- **MANUAL DE USUARIO**](#indice--manual-de-usuario)
   - [**SOBRE EL PROGRAMA**](#sobre-el-programa)
   - [**REQUISITOS DEL SISTEMA**](#requisitos-del-sistema)
   - [**PROCESO DE USO**](#proceso-de-uso)
 
 ## **SOBRE EL PROGRAMA**
-El programa analizador de codigo c o c++  tiene como objetivo de generar un reporte de tokens lexicos, reporte de errores lexicos y sintacticos y generar un arbol AST, teniendo como finalidad realizar la lectura del archivo.
-
-Se debe verificar que el archivo a usar sea de extencion .sc antes de empezar a usar el programa. En esta guía del usuario se ofrece una visión general de las características del programa y se indican las instrucciones que deben seguirse paso a paso para realizar diversas tareas.
+El programa tiene la finalidad de usar un analizador lexico y sintactico, analizando asi un archivo de tipo .olc, permitiendonos generar un automata, tablas siguientes, tablas de transicion, y nuestro automata AFD y poder verificar si una cadena sea valida por medio de una expresion.
 
 ## **REQUISITOS DEL SISTEMA**
 Verifique que la computadora cumpla con los siguientes requisitos antes de usar el programa.
 
-- Contar con un sistema operativo windows 7, 8, 8.1 o 10 u otro sistema operativo que permita usar python 
-- Tener instalado python
-- Tener un editor de codigo para pogramar(Visual Code Atom, Thonny, etc. )
-- si no se contara con un editor de codigo se podra usar el sistema de comando (CMD)
+- Contar con un sistema operativo windows 7, 8, 8.1 o 10 u otro sistema operativo que permita usar java 
+- Tener instalado java y jdk
+- Tener un editor de codigo para pogramar(Visual Code, neatbeans, u otro editor )
 
 ## **PROCESO DE USO**
 Para proceder al uso del programa se procedio a usar el editor de codigo Visual Studio Code.
 
-![VSC](VSC.png)
+![VSC](Img-usuario/images.png)
 
-Luego de haberse ejecutado se visualara un menu en el apartado de la consola de Visual Studio Code.
+Luego de haberse ejecutado se visualara un menu en el apartado de la consola de NeatbeansIDE
 
-```
------------MENU-----------
-1. Archivo
-2. Nombre del archivo
-3. salir
+al ejecutar el archivo se abrira nuestro From
 
-=>
-```
+![VSC](Img-usuario/Form.png)*
+Si se presiona el boton de abrir nos permitira abrir un archivo olc y pegar el contendio en nuestra ventana editos
 
-Se visualizan 3 opciones, para poder seleccionar uno deberemos ingresar el numero que identifica la opcion a realizar
+![VSC](Img-usuario/abrir.png)*
 
-Si no se ingresa una opcion valida se tendra el siguiente mensaje
-```
-Opcion no valida!
-```
 
-Se ingresa el numero 1 se visualiza lo siguiente
 
-```
-Ingrese el directorio del archivo 
->>
-```
-Se devera ingresar la direccion del archivo a leer, si fue leido con exito saldra el siguiente mensaje
+Si se preciona el boton de guardar nos permitira guardar  cualquier modificiacion a nuestro 
+editor
 
-```
-Archivo leido con exito!
-```
-Si no fuera leido se vera el siguiente mensaje
-```
-Archivo no encontrado!
-```
-Despues de los mensajes estaremos nuevamente en el menu, se procede a ingresar la siguiente opcion que es 2
+Si se preciona el boton de guarda como nos permitira guardar  un archivo te tipo clo editor
+![VSC](Img-usuario/botones.png)*
 
-Se visualizara lo siguiente 
-```
-Ingrese nombre del archivo 
->> 
-```
-Se debe ingresar un nombre para nuestro reporte que se estara generando
+se tienen los situeinte botones que nos permitiran realizar una accion
 
-Se vera el siguiente mensaje
-```
-Reportes generados con exito!
-```
-Esto indica que los reporte fueron generados con exito los cual se podra encontrar en la carpeta del programa con el nombre ingresado anteriormente.
+El boton de Generar Automata, nos genera nuestros arboles ABL, tabla de siguientes, tabla de transiciones, Automata AFD, Automata AFND
 
-Ejemplo
+El boton de Analizar Entrada nos generara un archivo json donde verificar que cadenas son aceptadas por una expresion si es asi se confirmara en el archivo json que a sido valido correctamente.
 
-![ejemplo](HTML.png)
-
-Se abren los reportes generados, contienen lo siguiente
-
-- Tabla de tokens 
-![Rtokens](R_Tokens.png)
-- Tabla de errores
-![Rtokens](T_errores.png)
-
-Luego de haberse generado el reporte estaremos nuevamente en el menu, se procede a ingresar la siguiente opcion que es 3 
-
-La opcion 3 finaliza el programa teniedo el siguiente mensaje
-
-```
-Fin del programa!
-```
-
+El boton de Limpiar nos limpia la pantalla editor
 
 
